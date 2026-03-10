@@ -239,3 +239,18 @@ footer {
 .project-link:hover {
   color: #555555;
 }
+
+#hero a.resume-btn {
+  background: transparent;
+  color: #222222;
+  border: 1px solid #222222;
+  padding: 0.8rem 1.8rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+#hero a.resume-btn:hover {
+  background: #222222;
+  color: #ffffff;
+}
