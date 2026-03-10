@@ -225,3 +225,17 @@ footer {
   font-size: 0.85rem;
   color: #999999;
 }
+.project-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #222222;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 1px solid #222222;
+  transition: color 0.2s;
+}
+
+.project-link:hover {
+  color: #555555;
+}
