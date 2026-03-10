@@ -1,9 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>My Portfolio</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dylan Bustos — Data Scientist</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Hello, world!</h1>
+
+    <!-- NAV -->
+    <nav>
+      <span class="logo">Dylan Bustos</span>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <h1>Hi, I'm Dylan Bustos</h1>
+      <p>Data analyst passionate about turning data into insights.</p>
+      <a href="#projects">View My Work</a>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Data analyst with a strong foundation in computer science and statistical modeling. I have experience using SQL, Python, and machine learning to deliver actionable insights through dashboards, analytical reporting, and predictive models.</p>
+      <p>I hold a Post Graduate Program in Data Science and Business Analytics certificate from UT Austin and a Bachelor of Science degree in Computer Science from UT Dallas. Currently seeking full-time data analyst and data science roles.</p>
+
+      <h3>Skills</h3>
+      <ul class="skills-list">
+        <li>Python</li>
+        <li>SQL</li>
+        <li>Pandas & NumPy</li>
+        <li>Scikit-Learn</li>
+        <li>Tableau</li>
+        <li>Matplotlib & Seaborn</li>
+        <li>MySQL</li>
+        <li>Machine Learning</li>
+        <li>Java</li>
+        <li>JavaScript</li>
+        <li>Jupyter Notebook</li>
+        <li>GitHub</li>
+      </ul>
+    </section>
+<!-- PROJECTS -->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <h3>FoodHub Order Analysis</h3>
+      <p>Conducted exploratory data analysis using NumPy, Pandas, Matplotlib, and Seaborn to uncover customer ordering patterns and improve targeted marketing strategies for a food delivery platform.</p>
+      <div class="project-tags">
+        <span>Python</span>
+        <span>Pandas</span>
+        <span>Seaborn</span>
+        <span>EDA</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>INN Hotels – Booking Cancellations</h3>
+      <p>Built logistic regression and decision tree models to predict hotel booking cancellations, identifying key features to support data-driven refund policy and revenue optimization decisions.</p>
+      <div class="project-tags">
+        <span>Python</span>
+        <span>Scikit-Learn</span>
+        <span>Classification</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>EasyVisa – Visa Approval Prediction</h3>
+      <p>Developed ensemble ML models using bagging and boosting to predict visa approvals, achieving 75–78% accuracy and identifying key decision drivers.</p>
+      <div class="project-tags">
+        <span>Python</span>
+        <span>Ensemble ML</span>
+        <span>Scikit-Learn</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>Trade & Ahead – Stock Clustering</h3>
+      <p>Applied K-Means and hierarchical clustering to stock market data to identify investment-relevant patterns. Achieved a peak cophenetic correlation score of 0.94.</p>
+      <div class="project-tags">
+        <span>Python</span>
+        <span>K-Means</span>
+        <span>Unsupervised Learning</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>New Wheels – SQL Analytics</h3>
+      <p>Built a SQL dashboard and automated quarterly reports to identify key business drivers and customer retention strategies using analysis of 994 annual customer reviews.</p>
+      <div class="project-tags">
+        <span>SQL</span>
+        <span>MySQL</span>
+        <span>Analytics</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Get In Touch</h2>
+  <p>I'm currently open to full-time data analyst and data science roles. Feel free to reach out!</p>
+  <div class="contact-links">
+    <a href="mailto:dylanantoniobustos@gmail.com">✉ Email Me</a>
+    <a href="https://www.linkedin.com/in/dylan-bustos-12aa0a23b" target="_blank">LinkedIn</a>
+    <a href="https://github.com/dylanabustos" target="_blank">GitHub</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Dylan Bustos. Built with HTML & CSS.</p>
+</footer>
+    <script src="script.js"></script>
   </body>
 </html>
