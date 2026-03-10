@@ -21,6 +21,7 @@ nav {
   border-bottom: 1px solid #eeeeee;
   position: sticky;
   top: 0;
+  z-index: 100;
 }
 
 .logo {
@@ -69,17 +70,36 @@ nav ul a:hover {
   max-width: 500px;
 }
 
-#hero a {
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-buttons a {
   background: #222222;
   color: #ffffff;
   padding: 0.8rem 1.8rem;
   border-radius: 4px;
   text-decoration: none;
   font-size: 0.95rem;
+  transition: background 0.2s;
 }
 
-#hero a:hover {
+.hero-buttons a:hover {
   background: #444444;
+}
+
+.hero-buttons a.resume-btn {
+  background: transparent;
+  color: #222222;
+  border: 1px solid #222222;
+}
+
+.hero-buttons a.resume-btn:hover {
+  background: #222222;
+  color: #ffffff;
 }
 
 /* ── ABOUT ── */
@@ -97,7 +117,7 @@ nav ul a:hover {
 #about p {
   color: #555555;
   line-height: 1.8;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 #about h3 {
@@ -119,6 +139,7 @@ nav ul a:hover {
   font-size: 0.9rem;
   color: #333333;
 }
+
 /* ── PROJECTS ── */
 #projects {
   padding: 5rem 2.5rem;
@@ -168,6 +189,7 @@ nav ul a:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .project-tags span {
@@ -177,6 +199,30 @@ nav ul a:hover {
   font-size: 0.78rem;
   color: #333333;
 }
+
+.project-card-links {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.project-link {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  text-decoration: none;
+  border: 1px solid #222222;
+  color: #222222;
+  transition: all 0.2s;
+}
+
+.project-link:hover {
+  background: #222222;
+  color: #ffffff;
+}
+
 /* ── CONTACT ── */
 #contact {
   padding: 5rem 2.5rem;
@@ -224,33 +270,4 @@ footer {
   border-top: 1px solid #eeeeee;
   font-size: 0.85rem;
   color: #999999;
-}
-.project-link {
-  display: inline-block;
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  color: #222222;
-  text-decoration: none;
-  font-weight: bold;
-  border-bottom: 1px solid #222222;
-  transition: color 0.2s;
-}
-
-.project-link:hover {
-  color: #555555;
-}
-
-#hero a.resume-btn {
-  background: transparent;
-  color: #222222;
-  border: 1px solid #222222;
-  padding: 0.8rem 1.8rem;
-  border-radius: 4px;
-  text-decoration: none;
-  font-size: 0.95rem;
-}
-
-#hero a.resume-btn:hover {
-  background: #222222;
-  color: #ffffff;
 }
