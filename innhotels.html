@@ -4,152 +4,60 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>INN Hotels – Dylan Bustos</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #ffffff;
-      color: #222222;
-    }
-
+    body { font-family: Arial, sans-serif; background: #ffffff; color: #222222; }
     nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 2.5rem;
-      background: #ffffff;
-      border-bottom: 1px solid #eeeeee;
-      position: sticky;
-      top: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 2.5rem; background: #ffffff; border-bottom: 1px solid #eeeeee;
+      position: sticky; top: 0; z-index: 100;
     }
-    .logo {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #222222;
-      text-decoration: none;
-    }
-    nav a.back {
-      font-size: 0.9rem;
-      color: #555555;
-      text-decoration: none;
-    }
+    .logo { font-size: 1.1rem; font-weight: bold; color: #222222; text-decoration: none; }
+    nav a.back { font-size: 0.9rem; color: #555555; text-decoration: none; }
     nav a.back:hover { color: #222222; }
-
-    .project-header {
-      padding: 3.5rem 2.5rem 2.5rem;
-      max-width: 900px;
-      margin: 0 auto;
-      border-bottom: 1px solid #eeeeee;
-    }
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.85rem;
-      color: #555555;
-      text-decoration: none;
-      margin-bottom: 1.5rem;
-    }
+    .project-header { padding: 3.5rem 2.5rem 2.5rem; max-width: 960px; margin: 0 auto; border-bottom: 1px solid #eeeeee; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: #555555; text-decoration: none; margin-bottom: 1.5rem; }
     .back-link:hover { color: #222222; }
-
-    .project-header h1 {
-      font-size: 2.2rem;
-      font-weight: bold;
-      margin-bottom: 0.75rem;
-      line-height: 1.2;
+    .project-header h1 { font-size: 2.2rem; font-weight: bold; margin-bottom: 0.75rem; }
+    .project-header > p { color: #555555; font-size: 1rem; line-height: 1.7; max-width: 680px; margin-bottom: 1.5rem; }
+    .meta { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .meta-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #999999; }
+    .meta-value { font-size: 0.9rem; color: #222222; font-weight: 500; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .tags span { background: #f0f0f0; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.78rem; color: #333333; }
+    .github-btn { display: inline-block; padding: 0.6rem 1.4rem; border: 1px solid #222222; border-radius: 4px; text-decoration: none; color: #222222; font-size: 0.88rem; transition: all 0.2s; }
+    .github-btn:hover { background: #222222; color: #ffffff; }
+    .stats-bar { max-width: 960px; margin: 0 auto; padding: 2rem 2.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; border-bottom: 1px solid #eeeeee; }
+    .stat-card { background: #f9f9f9; border: 1px solid #eeeeee; border-radius: 8px; padding: 1.2rem 1.4rem; text-align: center; }
+    .stat-num { font-size: 1.8rem; font-weight: bold; color: #222222; }
+    .stat-label { font-size: 0.75rem; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem; }
+    .walkthrough { max-width: 960px; margin: 0 auto; padding: 3rem 2.5rem; }
+    .walkthrough-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 2.5rem; }
+    .step { display: flex; gap: 2rem; margin-bottom: 3rem; position: relative; }
+    .step:not(:last-child)::after { content: ''; position: absolute; left: 19px; top: 44px; bottom: -3rem; width: 2px; background: #eeeeee; }
+    .step-number { flex-shrink: 0; width: 40px; height: 40px; background: #222222; color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: bold; position: relative; z-index: 1; }
+    .step-content { flex: 1; padding-top: 0.5rem; }
+    .step-content h3 { font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem; }
+    .step-content p { font-size: 0.92rem; color: #555555; line-height: 1.7; margin-bottom: 1rem; }
+    .step-highlight { background: #f9f9f9; border: 1px solid #eeeeee; border-left: 3px solid #222222; border-radius: 4px; padding: 0.75rem 1rem; font-size: 0.88rem; color: #444444; line-height: 1.6; margin-bottom: 1.2rem; }
+    .step-highlight ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+    .step-highlight ul li { padding-left: 1rem; position: relative; }
+    .step-highlight ul li::before { content: '→'; position: absolute; left: 0; color: #999999; font-size: 0.8rem; }
+    .chart-box { background: #ffffff; border: 1px solid #eeeeee; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+    .chart-title { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: #999999; margin-bottom: 0.5rem; }
+    .notebook-container { max-width: 960px; margin: 0 auto; padding: 2.5rem 2.5rem 4rem; border-top: 1px solid #eeeeee; }
+    .notebook-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #999999; margin-bottom: 1rem; }
+    .notebook-frame { width: 100%; height: 800px; border: 1px solid #eeeeee; border-radius: 8px; overflow: hidden; }
+    footer { text-align: center; padding: 2rem; background: #f9f9f9; border-top: 1px solid #eeeeee; font-size: 0.85rem; color: #999999; }
+    @media (max-width: 768px) {
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      nav, .project-header, .stats-bar, .walkthrough, .notebook-container { padding-left: 1.5rem; padding-right: 1.5rem; }
     }
-    .project-header p {
-      color: #555555;
-      font-size: 1rem;
-      line-height: 1.7;
-      max-width: 680px;
-      margin-bottom: 1.5rem;
-    }
-
-    .meta {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-    .meta-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #999999;
-    }
-    .meta-value {
-      font-size: 0.9rem;
-      color: #222222;
-      font-weight: 500;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .tags span {
-      background: #f0f0f0;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      color: #333333;
-    }
-
-    .notebook-container {
-      max-width: 900px;
-      margin: 2.5rem auto;
-      padding: 0 2.5rem 4rem;
-    }
-    .notebook-container h2 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      color: #555555;
-      font-weight: normal;
-    }
-    .notebook-frame {
-      width: 100%;
-      height: 800px;
-      border: 1px solid #eeeeee;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: #f9f9f9;
-      border-top: 1px solid #eeeeee;
-      font-size: 0.85rem;
-      color: #999999;
-    }
-    .github-btn {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.6rem 1.4rem;
-  border: 1px solid #222222;
-  border-radius: 4px;
-  text-decoration: none;
-  color: #222222;
-  font-size: 0.88rem;
-  transition: all 0.2s;
-}
-
-.github-btn:hover {
-  background: #222222;
-  color: #ffffff;
-}
   </style>
 </head>
 <body>
-
   <nav>
     <a href="index.html" class="logo">Dylan Bustos</a>
     <a href="index.html" class="back">← Back to Portfolio</a>
@@ -158,45 +66,208 @@
   <div class="project-header">
     <a href="index.html" class="back-link">← All Projects</a>
     <h1>INN Hotels – Booking Cancellations</h1>
-    <p>Built logistic regression and decision tree models to predict hotel booking cancellations. Analyzed key features influencing cancellation risk to support data-driven refund policy and revenue optimization decisions.</p>
-
+    <p>Built classification models to predict hotel booking cancellations across 36,275 bookings. Identified key factors driving cancellations to help the hotel make smarter refund policy and revenue optimization decisions.</p>
     <div class="meta">
-      <div class="meta-item">
-        <span class="meta-label">Type</span>
-        <span class="meta-value">Classification</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Tools</span>
-        <span class="meta-value">Python, Scikit-Learn</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Models</span>
-        <span class="meta-value">Logistic Regression, Decision Tree</span>
-      </div>
+      <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">Classification</span></div>
+      <div class="meta-item"><span class="meta-label">Tools</span><span class="meta-value">Python, Scikit-Learn, Pandas</span></div>
+      <div class="meta-item"><span class="meta-label">Dataset</span><span class="meta-value">36,275 Hotel Bookings</span></div>
     </div>
-
     <div class="tags">
-      <span>Python</span>
-      <span>Scikit-Learn</span>
-      <span>Classification</span>
-      <span>Logistic Regression</span>
-      <span>Decision Tree</span>
+      <span>Python</span><span>Scikit-Learn</span><span>Logistic Regression</span><span>Decision Tree</span><span>Classification</span>
     </div>
     <a href="https://github.com/dylanabustos/inn-hotels" target="_blank" class="github-btn">View on GitHub →</a>
   </div>
 
-  <div class="notebook-container">
-    <h2>Full Notebook</h2>
-    <iframe
-      class="notebook-frame"
-      src="https://nbviewer.org/github/dylanabustos/inn-hotels/blob/main/INN_Hotels.ipynb"
-      title="INN Hotels Notebook">
-    </iframe>
+  <div class="stats-bar">
+    <div class="stat-card"><div class="stat-num">36,275</div><div class="stat-label">Total Bookings</div></div>
+    <div class="stat-card"><div class="stat-num">32.8%</div><div class="stat-label">Cancellation Rate</div></div>
+    <div class="stat-card"><div class="stat-num">139 days</div><div class="stat-label">Avg Lead Time (Canceled)</div></div>
+    <div class="stat-card"><div class="stat-num">59 days</div><div class="stat-label">Avg Lead Time (Kept)</div></div>
   </div>
 
-  <footer>
-    <p>© 2025 Dylan Bustos. Built with HTML & CSS.</p>
-  </footer>
+  <div class="walkthrough">
+    <div class="walkthrough-title">Project Walkthrough</div>
 
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <h3>Understanding the Problem</h3>
+        <p>INN Hotels Group was experiencing a high rate of booking cancellations, which directly impacts revenue. The goal was to build a model that could predict whether a booking would be canceled, allowing the hotel to take proactive steps to retain customers or adjust pricing.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>36,275 total bookings in the dataset</li>
+            <li>32.8% of all bookings were canceled — a significant revenue risk</li>
+            <li>19 features including lead time, room type, meal plan, and market segment</li>
+            <li>Target variable: booking_status (Canceled / Not_Canceled)</li>
+          </ul>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">Canceled vs Not Canceled Bookings — hover for details</div>
+          <div id="chart-status"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <h3>Cleaning & Preparing the Data</h3>
+        <p>Before building models, the data was cleaned and prepared. Categorical variables like room type, meal plan, and market segment were encoded into numbers so the machine learning models could process them.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>No missing values found in the dataset</li>
+            <li>Categorical variables were encoded using label encoding</li>
+            <li>Data was split 70/30 into training and testing sets</li>
+            <li>Features were scaled to ensure fair model comparisons</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <h3>What Factors Drive Cancellations?</h3>
+        <p>Before building the model, exploratory analysis was done to understand which factors were most associated with cancellations. Two key drivers stood out: lead time and special requests.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>Canceled bookings had an avg lead time of 139 days vs 59 days for kept bookings</li>
+            <li>Customers who canceled made far fewer special requests (0.33 vs 0.76 avg)</li>
+            <li>Online bookings had the highest cancellation rate at 36.5%</li>
+            <li>Corporate bookings had the lowest cancellation rate at just 10.9%</li>
+          </ul>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">Cancellation Rate by Market Segment — hover for details</div>
+          <div id="chart-segment"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <h3>Cancellations by Month</h3>
+        <p>Looking at cancellation rates across the year revealed a strong seasonal pattern. Summer months had significantly higher cancellation rates, which has major implications for revenue planning.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>July had the highest cancellation rate at 45%</li>
+            <li>January had the lowest at just 2.4%</li>
+            <li>Cancellation rates peaked in summer (June–August) and dropped in winter</li>
+            <li>This suggests the hotel should apply stricter policies during peak season</li>
+          </ul>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">Cancellation Rate by Month — hover for details</div>
+          <div id="chart-month"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <h3>Cancellation Rate by Room Type</h3>
+        <p>Different room types had notably different cancellation rates. Understanding which room types are most at risk helps the hotel prioritize overbooking strategies and targeted retention efforts.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>Room Type 6 had the highest cancellation rate at 42%</li>
+            <li>Room Type 7 had the lowest at 22.8%</li>
+            <li>Higher priced rooms (Type 6 avg $182) tended to have higher cancellation rates</li>
+          </ul>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">Cancellation Rate by Room Type — hover for details</div>
+          <div id="chart-room"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <h3>Building the Models</h3>
+        <p>Two classification models were built and compared: Logistic Regression (a simpler, more interpretable model) and a Decision Tree (which can capture more complex patterns in the data).</p>
+        <div class="step-highlight">
+          <ul>
+            <li>Logistic Regression — good baseline, interpretable coefficients</li>
+            <li>Decision Tree — better at capturing non-linear relationships in the data</li>
+            <li>Both models evaluated using accuracy, precision, recall, and F1 score</li>
+            <li>The Decision Tree outperformed Logistic Regression on this dataset</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">7</div>
+      <div class="step-content">
+        <h3>Conclusion & Recommendations</h3>
+        <p>The model successfully identified bookings at high risk of cancellation. Combined with the exploratory findings, several actionable recommendations were made for INN Hotels Group.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>Flag bookings with lead times over 100 days as high cancellation risk</li>
+            <li>Introduce stricter cancellation policies during summer months (June–August)</li>
+            <li>Encourage special requests at booking time — strongly associated with retention</li>
+            <li>Offer incentives to online bookers to reduce the 36.5% cancellation rate</li>
+            <li>Consider overbooking strategies for Room Type 6 given its 42% cancellation rate</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="notebook-container">
+    <div class="notebook-label">Full Technical Notebook</div>
+    <iframe class="notebook-frame" src="https://nbviewer.org/github/dylanabustos/inn-hotels/blob/main/INN_Hotels.ipynb" title="INN Hotels Notebook"></iframe>
+  </div>
+
+  <footer><p>© 2025 Dylan Bustos. Built with HTML & CSS.</p></footer>
+
+  <script>
+    const layout = () => ({
+      margin: { t: 10, r: 10, b: 60, l: 60 },
+      paper_bgcolor: 'transparent', plot_bgcolor: 'transparent',
+      font: { family: 'Arial, sans-serif', size: 12, color: '#444444' },
+      xaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee' },
+      yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee' },
+      showlegend: false,
+    });
+    const config = { responsive: true, displayModeBar: false };
+
+    Plotly.newPlot('chart-status', [{
+      type: 'bar', x: ['Not Canceled', 'Canceled'], y: [24390, 11885],
+      marker: { color: ['#222222', '#aaaaaa'] },
+      text: ['67.2%', '32.8%'], textposition: 'outside',
+      hovertemplate: '<b>%{x}</b><br>Bookings: %{y}<extra></extra>',
+    }], { ...layout(), height: 280, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [0, 28000] } }, config);
+
+    Plotly.newPlot('chart-segment', [{
+      type: 'bar',
+      x: ['Online', 'Offline', 'Aviation', 'Corporate', 'Complementary'],
+      y: [36.5, 29.9, 29.6, 10.9, 0.0],
+      marker: { color: [36.5, 29.9, 29.6, 10.9, 0.0].map(v => v > 30 ? '#222222' : v > 15 ? '#666666' : '#aaaaaa') },
+      hovertemplate: '<b>%{x}</b><br>Cancellation Rate: %{y}%<extra></extra>',
+    }], { ...layout(), height: 300, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [0, 45] } }, config);
+
+    Plotly.newPlot('chart-month', [{
+      type: 'scatter', mode: 'lines+markers',
+      x: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      y: [2.4, 25.2, 29.7, 36.4, 36.5, 40.3, 45.0, 39.0, 33.4, 35.4, 29.4, 13.3],
+      line: { color: '#222222', width: 2 },
+      marker: { color: '#222222', size: 7 },
+      fill: 'tozeroy', fillcolor: 'rgba(34,34,34,0.05)',
+      hovertemplate: '<b>%{x}</b><br>Cancellation Rate: %{y}%<extra></extra>',
+    }], { ...layout(), height: 300, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [0, 52] } }, config);
+
+    Plotly.newPlot('chart-room', [{
+      type: 'bar',
+      x: ['Room 1','Room 2','Room 3','Room 4','Room 5','Room 6','Room 7'],
+      y: [32.3, 32.9, 28.6, 34.2, 27.2, 42.0, 22.8],
+      marker: { color: [32.3, 32.9, 28.6, 34.2, 27.2, 42.0, 22.8].map(v => v > 38 ? '#222222' : v > 30 ? '#666666' : '#aaaaaa') },
+      hovertemplate: '<b>%{x}</b><br>Cancellation Rate: %{y}%<extra></extra>',
+    }], { ...layout(), height: 300, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [0, 50] } }, config);
+  </script>
 </body>
 </html>

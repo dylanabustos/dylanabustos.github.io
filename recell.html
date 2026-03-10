@@ -4,199 +4,194 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ReCell – Dylan Bustos</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #ffffff;
-      color: #222222;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 2.5rem;
-      background: #ffffff;
-      border-bottom: 1px solid #eeeeee;
-      position: sticky;
-      top: 0;
-    }
-    .logo {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #222222;
-      text-decoration: none;
-    }
-    nav a.back {
-      font-size: 0.9rem;
-      color: #555555;
-      text-decoration: none;
-    }
+    body { font-family: Arial, sans-serif; background: #ffffff; color: #222222; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2.5rem; background: #ffffff; border-bottom: 1px solid #eeeeee; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 1.1rem; font-weight: bold; color: #222222; text-decoration: none; }
+    nav a.back { font-size: 0.9rem; color: #555555; text-decoration: none; }
     nav a.back:hover { color: #222222; }
-
-    .project-header {
-      padding: 3.5rem 2.5rem 2.5rem;
-      max-width: 900px;
-      margin: 0 auto;
-      border-bottom: 1px solid #eeeeee;
-    }
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.85rem;
-      color: #555555;
-      text-decoration: none;
-      margin-bottom: 1.5rem;
-    }
-    .back-link:hover { color: #222222; }
-
-    .project-header h1 {
-      font-size: 2.2rem;
-      font-weight: bold;
-      margin-bottom: 0.75rem;
-      line-height: 1.2;
-    }
-    .project-header p {
-      color: #555555;
-      font-size: 1rem;
-      line-height: 1.7;
-      max-width: 680px;
-      margin-bottom: 1.5rem;
-    }
-
-    .meta {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-    .meta-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #999999;
-    }
-    .meta-value {
-      font-size: 0.9rem;
-      color: #222222;
-      font-weight: 500;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .tags span {
-      background: #f0f0f0;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      color: #333333;
-    }
-
-    .notebook-container {
-      max-width: 900px;
-      margin: 2.5rem auto;
-      padding: 0 2.5rem 4rem;
-    }
-    .notebook-container h2 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      color: #555555;
-      font-weight: normal;
-    }
-    .notebook-frame {
-      width: 100%;
-      height: 800px;
-      border: 1px solid #eeeeee;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: #f9f9f9;
-      border-top: 1px solid #eeeeee;
-      font-size: 0.85rem;
-      color: #999999;
-    }
-    .github-btn {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.6rem 1.4rem;
-  border: 1px solid #222222;
-  border-radius: 4px;
-  text-decoration: none;
-  color: #222222;
-  font-size: 0.88rem;
-  transition: all 0.2s;
-}
-
-.github-btn:hover {
-  background: #222222;
-  color: #ffffff;
-}
+    .project-header { padding: 3.5rem 2.5rem 2.5rem; max-width: 960px; margin: 0 auto; border-bottom: 1px solid #eeeeee; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: #555555; text-decoration: none; margin-bottom: 1.5rem; }
+    .project-header h1 { font-size: 2.2rem; font-weight: bold; margin-bottom: 0.75rem; }
+    .project-header > p { color: #555555; font-size: 1rem; line-height: 1.7; max-width: 680px; margin-bottom: 1.5rem; }
+    .meta { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .meta-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #999999; }
+    .meta-value { font-size: 0.9rem; color: #222222; font-weight: 500; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .tags span { background: #f0f0f0; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.78rem; color: #333333; }
+    .github-btn { display: inline-block; padding: 0.6rem 1.4rem; border: 1px solid #222222; border-radius: 4px; text-decoration: none; color: #222222; font-size: 0.88rem; transition: all 0.2s; }
+    .github-btn:hover { background: #222222; color: #ffffff; }
+    .stats-bar { max-width: 960px; margin: 0 auto; padding: 2rem 2.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; border-bottom: 1px solid #eeeeee; }
+    .stat-card { background: #f9f9f9; border: 1px solid #eeeeee; border-radius: 8px; padding: 1.2rem 1.4rem; text-align: center; }
+    .stat-num { font-size: 1.8rem; font-weight: bold; color: #222222; }
+    .stat-label { font-size: 0.75rem; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem; }
+    .walkthrough { max-width: 960px; margin: 0 auto; padding: 3rem 2.5rem; }
+    .walkthrough-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 2.5rem; }
+    .step { display: flex; gap: 2rem; margin-bottom: 3rem; position: relative; }
+    .step:not(:last-child)::after { content: ''; position: absolute; left: 19px; top: 44px; bottom: -3rem; width: 2px; background: #eeeeee; }
+    .step-number { flex-shrink: 0; width: 40px; height: 40px; background: #222222; color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: bold; position: relative; z-index: 1; }
+    .step-content { flex: 1; padding-top: 0.5rem; }
+    .step-content h3 { font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem; }
+    .step-content p { font-size: 0.92rem; color: #555555; line-height: 1.7; margin-bottom: 1rem; }
+    .step-highlight { background: #f9f9f9; border: 1px solid #eeeeee; border-left: 3px solid #222222; border-radius: 4px; padding: 0.75rem 1rem; font-size: 0.88rem; color: #444444; line-height: 1.6; margin-bottom: 1.2rem; }
+    .step-highlight ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+    .step-highlight ul li { padding-left: 1rem; position: relative; }
+    .step-highlight ul li::before { content: '→'; position: absolute; left: 0; color: #999999; font-size: 0.8rem; }
+    .chart-box { background: #ffffff; border: 1px solid #eeeeee; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+    .chart-title { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: #999999; margin-bottom: 0.5rem; }
+    .notebook-container { max-width: 960px; margin: 0 auto; padding: 2.5rem 2.5rem 4rem; border-top: 1px solid #eeeeee; }
+    .notebook-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #999999; margin-bottom: 1rem; }
+    .notebook-frame { width: 100%; height: 800px; border: 1px solid #eeeeee; border-radius: 8px; overflow: hidden; }
+    footer { text-align: center; padding: 2rem; background: #f9f9f9; border-top: 1px solid #eeeeee; font-size: 0.85rem; color: #999999; }
+    @media (max-width: 768px) { .stats-bar { grid-template-columns: repeat(2, 1fr); } }
   </style>
 </head>
 <body>
-
-  <nav>
-    <a href="index.html" class="logo">Dylan Bustos</a>
-    <a href="index.html" class="back">← Back to Portfolio</a>
-  </nav>
-
+  <nav><a href="index.html" class="logo">Dylan Bustos</a><a href="index.html" class="back">← Back to Portfolio</a></nav>
   <div class="project-header">
     <a href="index.html" class="back-link">← All Projects</a>
     <h1>ReCell – Used Device Pricing</h1>
-    <p>Analyzed a used devices dataset and built a linear regression model to help develop a dynamic pricing strategy for used and refurbished devices. Identified the key factors that significantly influence resale price and provided actionable business recommendations.</p>
-
+    <p>Built a linear regression model to predict the resale price of used smartphones and tablets across 3,454 devices. Identified the hardware features that most drive resale value in the secondhand market.</p>
     <div class="meta">
-      <div class="meta-item">
-        <span class="meta-label">Type</span>
-        <span class="meta-value">Supervised Learning</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Tools</span>
-        <span class="meta-value">Python, Scikit-Learn, Pandas</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Model</span>
-        <span class="meta-value">Linear Regression</span>
-      </div>
+      <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">Regression</span></div>
+      <div class="meta-item"><span class="meta-label">Tools</span><span class="meta-value">Python, Scikit-Learn, Pandas</span></div>
+      <div class="meta-item"><span class="meta-label">Dataset</span><span class="meta-value">3,454 Used Devices</span></div>
     </div>
-
-    <div class="tags">
-      <span>Python</span>
-      <span>Linear Regression</span>
-      <span>EDA</span>
-      <span>Scikit-Learn</span>
-      <span>Business Insights</span>
-    </div>
+    <div class="tags"><span>Python</span><span>Linear Regression</span><span>Scikit-Learn</span><span>Feature Engineering</span><span>Regression</span></div>
     <a href="https://github.com/dylanabustos/recell-pricing-analysis" target="_blank" class="github-btn">View on GitHub →</a>
   </div>
-
-  <div class="notebook-container">
-    <h2>Full Notebook</h2>
-    <iframe
-      class="notebook-frame"
-      src="https://nbviewer.org/github/dylanabustos/recell-pricing-analysis/blob/main/ReCell.ipynb"
-      title="ReCell Notebook">
-    </iframe>
+  <div class="stats-bar">
+    <div class="stat-card"><div class="stat-num">3,454</div><div class="stat-label">Devices Analyzed</div></div>
+    <div class="stat-card"><div class="stat-num">93%</div><div class="stat-label">Android Devices</div></div>
+    <div class="stat-card"><div class="stat-num">0.62</div><div class="stat-label">Screen Size Correlation</div></div>
+    <div class="stat-card"><div class="stat-num">5G +21%</div><div class="stat-label">Price Premium</div></div>
   </div>
+  <div class="walkthrough">
+    <div class="walkthrough-title">Project Walkthrough</div>
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <h3>Understanding the Problem</h3>
+        <p>ReCell is a startup in the used device market. They needed a way to dynamically price used phones and tablets based on device specifications rather than relying on fixed depreciation tables. The goal was to build a model that predicts the normalized resale price of a device.</p>
+        <div class="step-highlight"><ul>
+          <li>3,454 used devices in the dataset</li>
+          <li>Features: brand, OS, screen size, camera, RAM, battery, days used</li>
+          <li>Target variable: normalized_used_price</li>
+          <li>93% of devices in the dataset run Android</li>
+        </ul></div>
+        <div class="chart-box"><div class="chart-title">Device Count by Operating System — hover for details</div><div id="chart-os"></div></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <h3>Exploring the Data</h3>
+        <p>Before modeling, the data was explored to understand how devices were distributed across brands and release years. The dataset spanned devices from 2013 to 2020, with 2014 being the most represented year.</p>
+        <div class="step-highlight"><ul>
+          <li>2014 had the most devices (642), suggesting a large secondhand market for that era</li>
+          <li>Samsung was the most common named brand with 341 devices</li>
+          <li>Huawei (251), LG (201), and Lenovo (171) rounded out the top brands</li>
+          <li>Newer devices (2019–2020) had fewer entries — less time to enter the used market</li>
+        </ul></div>
+        <div class="chart-box"><div class="chart-title">Devices by Release Year — hover for details</div><div id="chart-year"></div></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <h3>What Hardware Features Drive Price?</h3>
+        <p>Correlation analysis was used to identify which features had the strongest relationship with resale price. Screen size, battery, and camera quality were the top predictors.</p>
+        <div class="step-highlight"><ul>
+          <li>Screen size had the strongest correlation with used price (0.62)</li>
+          <li>Battery capacity was nearly as important (0.61)</li>
+          <li>Main camera megapixels had a strong correlation (0.59)</li>
+          <li>Days used had a negative correlation (-0.36) — older devices are worth less</li>
+        </ul></div>
+        <div class="chart-box"><div class="chart-title">Feature Correlation with Used Price — hover for details</div><div id="chart-corr"></div></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <h3>Does 4G or 5G Connectivity Matter?</h3>
+        <p>Network connectivity turned out to be a meaningful price differentiator. Devices with 5G commanded a significant premium over non-5G devices in the used market.</p>
+        <div class="step-highlight"><ul>
+          <li>5G devices had an avg used price of 5.23 vs 4.33 for non-5G — a 21% premium</li>
+          <li>4G devices were priced 18% higher than non-4G devices on average</li>
+          <li>Only 152 of 3,454 devices (4.4%) had 5G — still rare in the dataset</li>
+          <li>Connectivity is a strong signal worth including in the pricing model</li>
+        </ul></div>
+        <div class="chart-box"><div class="chart-title">Avg Used Price by Connectivity — hover for details</div><div id="chart-connectivity"></div></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <h3>Avg Used Price by OS</h3>
+        <p>iOS devices (Apple) commanded the highest average resale price, consistent with Apple's reputation for strong device longevity and brand value retention in the used market.</p>
+        <div class="step-highlight"><ul>
+          <li>iOS devices had the highest avg used price at 4.96</li>
+          <li>Android devices averaged 4.41</li>
+          <li>Windows devices averaged 4.16</li>
+          <li>Apple's strong brand value is clearly reflected in secondhand pricing</li>
+        </ul></div>
+        <div class="chart-box"><div class="chart-title">Avg Used Price by Operating System — hover for details</div><div id="chart-osprice"></div></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <h3>Building the Model</h3>
+        <p>A linear regression model was built using the most predictive features identified in the exploratory phase. The model was evaluated on a held-out test set using R² and RMSE.</p>
+        <div class="step-highlight"><ul>
+          <li>Features used: screen size, battery, camera, RAM, days used, 4G/5G, OS</li>
+          <li>Data split 70/30 into training and test sets</li>
+          <li>Linear regression chosen for interpretability of coefficients</li>
+          <li>Model performance evaluated using R² score and RMSE on test data</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">7</div>
+      <div class="step-content">
+        <h3>Conclusion & Recommendations</h3>
+        <p>The model successfully learned the relationship between device specs and resale value. The findings give ReCell a data-driven foundation for dynamic pricing.</p>
+        <div class="step-highlight"><ul>
+          <li>Prioritize screen size, battery, and camera as primary pricing signals</li>
+          <li>Apply a 5G premium — those devices command ~21% more in the used market</li>
+          <li>iOS devices should be listed at a premium over comparable Android devices</li>
+          <li>Days used should be factored into price — each additional day reduces value</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+  <div class="notebook-container">
+    <div class="notebook-label">Full Technical Notebook</div>
+    <iframe class="notebook-frame" src="https://nbviewer.org/github/dylanabustos/recell-pricing-analysis/blob/main/ReCell.ipynb" title="ReCell Notebook"></iframe>
+  </div>
+  <footer><p>© 2025 Dylan Bustos. Built with HTML & CSS.</p></footer>
+  <script>
+    const layout = () => ({ margin: { t: 10, r: 10, b: 60, l: 60 }, paper_bgcolor: 'transparent', plot_bgcolor: 'transparent', font: { family: 'Arial, sans-serif', size: 12, color: '#444444' }, xaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee' }, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee' }, showlegend: false });
+    const config = { responsive: true, displayModeBar: false };
 
-  <footer>
-    <p>© 2025 Dylan Bustos. Built with HTML & CSS.</p>
-  </footer>
+    Plotly.newPlot('chart-os', [{ type: 'bar', x: ['Android', 'Others', 'Windows', 'iOS'], y: [3214, 137, 67, 36], marker: { color: ['#222222', '#888888', '#aaaaaa', '#cccccc'] }, hovertemplate: '<b>%{x}</b><br>Devices: %{y}<extra></extra>' }], { ...layout(), height: 280, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [0, 3600] } }, config);
 
+    Plotly.newPlot('chart-year', [{ type: 'bar', x: [2013,2014,2015,2016,2017,2018,2019,2020], y: [570,642,515,383,299,322,446,277], marker: { color: [570,642,515,383,299,322,446,277].map((v,i) => i===1 ? '#222222' : '#aaaaaa') }, hovertemplate: '<b>%{x}</b><br>Devices: %{y}<extra></extra>' }], { ...layout(), height: 300 }, config);
+
+    Plotly.newPlot('chart-corr', [{
+      type: 'bar', orientation: 'h',
+      x: [-0.358, 0.191, 0.52, 0.587, 0.614, 0.615],
+      y: ['Days Used', 'Internal Memory', 'RAM', 'Camera MP', 'Battery', 'Screen Size'],
+      marker: { color: [-0.358, 0.191, 0.52, 0.587, 0.614, 0.615].map(v => v < 0 ? '#aaaaaa' : v > 0.55 ? '#222222' : '#666666') },
+      hovertemplate: '<b>%{y}</b><br>Correlation: %{x}<extra></extra>'
+    }], { ...layout(), height: 300, margin: { t: 10, r: 10, b: 40, l: 130 }, xaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [-0.5, 0.75] } }, config);
+
+    Plotly.newPlot('chart-connectivity', [{ type: 'bar', x: ['5G', '4G', 'No 4G', 'No 5G'], y: [5.225, 4.589, 3.896, 4.325], marker: { color: ['#222222', '#555555', '#aaaaaa', '#bbbbbb'] }, hovertemplate: '<b>%{x}</b><br>Avg Used Price: %{y}<extra></extra>' }], { ...layout(), height: 300, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [0, 6] } }, config);
+
+    Plotly.newPlot('chart-osprice', [{ type: 'bar', x: ['iOS', 'Android', 'Windows', 'Others'], y: [4.957, 4.408, 4.155, 3.307], marker: { color: ['#222222', '#555555', '#888888', '#aaaaaa'] }, hovertemplate: '<b>%{x}</b><br>Avg Used Price: %{y}<extra></extra>' }], { ...layout(), height: 280, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [0, 6] } }, config);
+  </script>
 </body>
 </html>

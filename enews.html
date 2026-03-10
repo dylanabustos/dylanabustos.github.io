@@ -4,200 +4,182 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>E-news Express – Dylan Bustos</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #ffffff;
-      color: #222222;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 2.5rem;
-      background: #ffffff;
-      border-bottom: 1px solid #eeeeee;
-      position: sticky;
-      top: 0;
-    }
-    .logo {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #222222;
-      text-decoration: none;
-    }
-    nav a.back {
-      font-size: 0.9rem;
-      color: #555555;
-      text-decoration: none;
-    }
+    body { font-family: Arial, sans-serif; background: #ffffff; color: #222222; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2.5rem; background: #ffffff; border-bottom: 1px solid #eeeeee; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 1.1rem; font-weight: bold; color: #222222; text-decoration: none; }
+    nav a.back { font-size: 0.9rem; color: #555555; text-decoration: none; }
     nav a.back:hover { color: #222222; }
-
-    .project-header {
-      padding: 3.5rem 2.5rem 2.5rem;
-      max-width: 900px;
-      margin: 0 auto;
-      border-bottom: 1px solid #eeeeee;
-    }
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.85rem;
-      color: #555555;
-      text-decoration: none;
-      margin-bottom: 1.5rem;
-    }
-    .back-link:hover { color: #222222; }
-
-    .project-header h1 {
-      font-size: 2.2rem;
-      font-weight: bold;
-      margin-bottom: 0.75rem;
-      line-height: 1.2;
-    }
-    .project-header p {
-      color: #555555;
-      font-size: 1rem;
-      line-height: 1.7;
-      max-width: 680px;
-      margin-bottom: 1.5rem;
-    }
-
-    .meta {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-    .meta-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #999999;
-    }
-    .meta-value {
-      font-size: 0.9rem;
-      color: #222222;
-      font-weight: 500;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .tags span {
-      background: #f0f0f0;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      color: #333333;
-    }
-
-    .notebook-container {
-      max-width: 900px;
-      margin: 2.5rem auto;
-      padding: 0 2.5rem 4rem;
-    }
-    .notebook-container h2 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      color: #555555;
-      font-weight: normal;
-    }
-    .notebook-frame {
-      width: 100%;
-      height: 800px;
-      border: 1px solid #eeeeee;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: #f9f9f9;
-      border-top: 1px solid #eeeeee;
-      font-size: 0.85rem;
-      color: #999999;
-    }
-    .github-btn {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.6rem 1.4rem;
-  border: 1px solid #222222;
-  border-radius: 4px;
-  text-decoration: none;
-  color: #222222;
-  font-size: 0.88rem;
-  transition: all 0.2s;
-}
-
-.github-btn:hover {
-  background: #222222;
-  color: #ffffff;
-}
+    .project-header { padding: 3.5rem 2.5rem 2.5rem; max-width: 960px; margin: 0 auto; border-bottom: 1px solid #eeeeee; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: #555555; text-decoration: none; margin-bottom: 1.5rem; }
+    .project-header h1 { font-size: 2.2rem; font-weight: bold; margin-bottom: 0.75rem; }
+    .project-header > p { color: #555555; font-size: 1rem; line-height: 1.7; max-width: 680px; margin-bottom: 1.5rem; }
+    .meta { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .meta-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #999999; }
+    .meta-value { font-size: 0.9rem; color: #222222; font-weight: 500; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .tags span { background: #f0f0f0; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.78rem; color: #333333; }
+    .github-btn { display: inline-block; padding: 0.6rem 1.4rem; border: 1px solid #222222; border-radius: 4px; text-decoration: none; color: #222222; font-size: 0.88rem; transition: all 0.2s; }
+    .github-btn:hover { background: #222222; color: #ffffff; }
+    .stats-bar { max-width: 960px; margin: 0 auto; padding: 2rem 2.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; border-bottom: 1px solid #eeeeee; }
+    .stat-card { background: #f9f9f9; border: 1px solid #eeeeee; border-radius: 8px; padding: 1.2rem 1.4rem; text-align: center; }
+    .stat-num { font-size: 1.8rem; font-weight: bold; color: #222222; }
+    .stat-label { font-size: 0.75rem; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem; }
+    .walkthrough { max-width: 960px; margin: 0 auto; padding: 3rem 2.5rem; }
+    .walkthrough-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 2.5rem; }
+    .step { display: flex; gap: 2rem; margin-bottom: 3rem; position: relative; }
+    .step:not(:last-child)::after { content: ''; position: absolute; left: 19px; top: 44px; bottom: -3rem; width: 2px; background: #eeeeee; }
+    .step-number { flex-shrink: 0; width: 40px; height: 40px; background: #222222; color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: bold; position: relative; z-index: 1; }
+    .step-content { flex: 1; padding-top: 0.5rem; }
+    .step-content h3 { font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem; }
+    .step-content p { font-size: 0.92rem; color: #555555; line-height: 1.7; margin-bottom: 1rem; }
+    .step-highlight { background: #f9f9f9; border: 1px solid #eeeeee; border-left: 3px solid #222222; border-radius: 4px; padding: 0.75rem 1rem; font-size: 0.88rem; color: #444444; line-height: 1.6; margin-bottom: 1.2rem; }
+    .step-highlight ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+    .step-highlight ul li { padding-left: 1rem; position: relative; }
+    .step-highlight ul li::before { content: '→'; position: absolute; left: 0; color: #999999; font-size: 0.8rem; }
+    .chart-box { background: #ffffff; border: 1px solid #eeeeee; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+    .chart-title { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: #999999; margin-bottom: 0.5rem; }
+    .notebook-container { max-width: 960px; margin: 0 auto; padding: 2.5rem 2.5rem 4rem; border-top: 1px solid #eeeeee; }
+    .notebook-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #999999; margin-bottom: 1rem; }
+    .notebook-frame { width: 100%; height: 800px; border: 1px solid #eeeeee; border-radius: 8px; overflow: hidden; }
+    footer { text-align: center; padding: 2rem; background: #f9f9f9; border-top: 1px solid #eeeeee; font-size: 0.85rem; color: #999999; }
+    @media (max-width: 768px) { .stats-bar { grid-template-columns: repeat(2, 1fr); } }
   </style>
 </head>
 <body>
-
-  <nav>
-    <a href="index.html" class="logo">Dylan Bustos</a>
-    <a href="index.html" class="back">← Back to Portfolio</a>
-  </nav>
-
+  <nav><a href="index.html" class="logo">Dylan Bustos</a><a href="index.html" class="back">← Back to Portfolio</a></nav>
   <div class="project-header">
     <a href="index.html" class="back-link">← All Projects</a>
-    <h1>E-news Express</h1>
-    <p>Used statistical analysis, A/B testing, and visualization to determine whether a new landing page for an online news portal is effective enough to gather new subscribers. Analyzed key metrics such as conversion status and time spent on the page, and examined the dependence of conversion on preferred language.</p>
-
+    <h1>E-news Express – A/B Test Analysis</h1>
+    <p>Conducted a statistical A/B test to determine whether a redesigned landing page increased user subscriptions for an online news platform. Used hypothesis testing to validate results with statistical confidence.</p>
     <div class="meta">
-      <div class="meta-item">
-        <span class="meta-label">Type</span>
-        <span class="meta-value">Business Statistics</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Tools</span>
-        <span class="meta-value">Python, SciPy, Matplotlib</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Methods</span>
-        <span class="meta-value">A/B Testing, Hypothesis Testing</span>
-      </div>
+      <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">A/B Testing & Statistics</span></div>
+      <div class="meta-item"><span class="meta-label">Tools</span><span class="meta-value">Python, SciPy, Pandas</span></div>
+      <div class="meta-item"><span class="meta-label">Dataset</span><span class="meta-value">100 Users (50 per group)</span></div>
     </div>
-
-    <div class="tags">
-      <span>Python</span>
-      <span>A/B Testing</span>
-      <span>Hypothesis Testing</span>
-      <span>Data Visualization</span>
-      <span>Statistical Inference</span>
-    </div>
+    <div class="tags"><span>Python</span><span>A/B Testing</span><span>Hypothesis Testing</span><span>SciPy</span><span>Statistics</span></div>
     <a href="https://github.com/dylanabustos/enews-express" target="_blank" class="github-btn">View on GitHub →</a>
-
   </div>
-
+  <div class="stats-bar">
+    <div class="stat-card"><div class="stat-num">100</div><div class="stat-label">Users in Test</div></div>
+    <div class="stat-card"><div class="stat-num">66%</div><div class="stat-label">New Page Conversion</div></div>
+    <div class="stat-card"><div class="stat-num">42%</div><div class="stat-label">Old Page Conversion</div></div>
+    <div class="stat-card"><div class="stat-num">+57%</div><div class="stat-label">Conversion Lift</div></div>
+  </div>
+  <div class="walkthrough">
+    <div class="walkthrough-title">Project Walkthrough</div>
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <h3>Understanding the Problem</h3>
+        <p>E-news Express was losing subscribers due to a poorly performing landing page. They redesigned the page and wanted to know: does the new design actually convert more visitors into subscribers? An A/B test was run to answer this scientifically.</p>
+        <div class="step-highlight"><ul>
+          <li>100 users randomly split into two equal groups of 50</li>
+          <li>Control group (50 users) saw the old landing page</li>
+          <li>Treatment group (50 users) saw the new redesigned landing page</li>
+          <li>Key metrics: conversion rate and time spent on page</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <h3>The A/B Test Setup</h3>
+        <p>A proper A/B test requires a clear hypothesis before any data is collected. Two hypotheses were defined: one about conversion rate and one about time spent on the page.</p>
+        <div class="step-highlight"><ul>
+          <li>H₀ (null): The new page has no effect on conversion rate</li>
+          <li>H₁ (alternative): The new page increases conversion rate</li>
+          <li>Significance level (alpha) set at 0.05 — standard for business experiments</li>
+          <li>A second test was run on time spent on page as a supporting metric</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <h3>Conversion Rate Results</h3>
+        <p>The results were clear — the new landing page performed significantly better. The treatment group converted at a 66% rate compared to just 42% for the control group.</p>
+        <div class="step-highlight"><ul>
+          <li>New page (treatment): 66% conversion rate — 33 out of 50 users subscribed</li>
+          <li>Old page (control): 42% conversion rate — 21 out of 50 users subscribed</li>
+          <li>A 24 percentage point improvement — a 57% relative lift in conversions</li>
+          <li>Statistical test confirmed this difference is not due to chance</li>
+        </ul></div>
+        <div class="chart-box"><div class="chart-title">Conversion Rate: New vs Old Page — hover for details</div><div id="chart-conversion"></div></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <h3>Time Spent on Page</h3>
+        <p>Beyond just conversions, users who saw the new page also spent significantly more time reading it. This suggests the new design was more engaging, not just better at prompting signups.</p>
+        <div class="step-highlight"><ul>
+          <li>Treatment group spent an avg of 6.22 minutes on the new page</li>
+          <li>Control group spent an avg of 4.53 minutes on the old page</li>
+          <li>A 37% increase in time spent — the new page was far more engaging</li>
+          <li>Converted users averaged 6.62 min vs 3.92 min for non-converted users</li>
+        </ul></div>
+        <div class="chart-box"><div class="chart-title">Avg Time Spent on Page by Group — hover for details</div><div id="chart-time"></div></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <h3>Conversion Rate by Language</h3>
+        <p>The dataset also included the preferred language of each user. English speakers converted at the highest rate, suggesting the new page resonates most strongly with English-speaking audiences.</p>
+        <div class="step-highlight"><ul>
+          <li>English speakers had the highest conversion rate at 65.6%</li>
+          <li>Spanish speakers converted at 52.9%</li>
+          <li>French speakers had the lowest conversion rate at 44.1%</li>
+          <li>A localized version of the new page could boost French and Spanish conversions</li>
+        </ul></div>
+        <div class="chart-box"><div class="chart-title">Conversion Rate by Language — hover for details</div><div id="chart-language"></div></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <h3>Hypothesis Testing Results</h3>
+        <p>Two statistical tests were run — a two-proportion z-test for conversion rate and a two-sample t-test for time spent. Both tests rejected the null hypothesis, confirming the new page is a genuine improvement.</p>
+        <div class="step-highlight"><ul>
+          <li>Conversion rate test: p-value below 0.05 — reject the null hypothesis</li>
+          <li>Time spent test: p-value below 0.05 — reject the null hypothesis</li>
+          <li>Both results are statistically significant at the 95% confidence level</li>
+          <li>Conclusion: the new landing page is genuinely better, not a random result</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">7</div>
+      <div class="step-content">
+        <h3>Conclusion & Recommendations</h3>
+        <p>The A/B test provided strong statistical evidence that the new landing page outperforms the old one on every metric measured.</p>
+        <div class="step-highlight"><ul>
+          <li>Roll out the new landing page to all users immediately — the data supports it</li>
+          <li>The 57% lift in conversions represents a major revenue opportunity at scale</li>
+          <li>Invest in French and Spanish localization to capture lower-performing language groups</li>
+          <li>Continue A/B testing — further iterations could push conversion rates even higher</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
   <div class="notebook-container">
-    <h2>Full Notebook</h2>
-    <iframe
-      class="notebook-frame"
-      src="https://nbviewer.org/github/dylanabustos/enews-express/blob/main/E_news_Express.ipynb"
-      title="E-news Express Notebook">
-    </iframe>
+    <div class="notebook-label">Full Technical Notebook</div>
+    <iframe class="notebook-frame" src="https://nbviewer.org/github/dylanabustos/enews-express/blob/main/E_news_Express.ipynb" title="E-news Express Notebook"></iframe>
   </div>
+  <footer><p>© 2025 Dylan Bustos. Built with HTML & CSS.</p></footer>
+  <script>
+    const layout = () => ({ margin: { t: 10, r: 10, b: 60, l: 60 }, paper_bgcolor: 'transparent', plot_bgcolor: 'transparent', font: { family: 'Arial, sans-serif', size: 12, color: '#444444' }, xaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee' }, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee' }, showlegend: false });
+    const config = { responsive: true, displayModeBar: false };
 
-  <footer>
-    <p>© 2025 Dylan Bustos. Built with HTML & CSS.</p>
-  </footer>
+    Plotly.newPlot('chart-conversion', [{ type: 'bar', x: ['New Page (Treatment)', 'Old Page (Control)'], y: [66, 42], marker: { color: ['#222222', '#aaaaaa'] }, text: ['66%', '42%'], textposition: 'outside', hovertemplate: '<b>%{x}</b><br>Conversion Rate: %{y}%<extra></extra>' }], { ...layout(), height: 280, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [0, 85] } }, config);
 
+    Plotly.newPlot('chart-time', [{ type: 'bar', x: ['New Page (Treatment)', 'Old Page (Control)'], y: [6.22, 4.53], marker: { color: ['#222222', '#aaaaaa'] }, text: ['6.22 min', '4.53 min'], textposition: 'outside', hovertemplate: '<b>%{x}</b><br>Avg Time: %{y} min<extra></extra>' }], { ...layout(), height: 280, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [0, 8] } }, config);
+
+    Plotly.newPlot('chart-language', [{ type: 'bar', x: ['English', 'Spanish', 'French'], y: [65.6, 52.9, 44.1], marker: { color: [65.6, 52.9, 44.1].map(v => v > 60 ? '#222222' : v > 50 ? '#666666' : '#aaaaaa') }, hovertemplate: '<b>%{x}</b><br>Conversion Rate: %{y}%<extra></extra>' }], { ...layout(), height: 280, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [0, 80] } }, config);
+  </script>
 </body>
 </html>

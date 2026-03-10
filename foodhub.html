@@ -3,153 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FoodHub Order Analysis — Dylan Bustos</title>
+  <title>FoodHub Order Analysis – Dylan Bustos</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #ffffff; color: #222222; }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #ffffff;
-      color: #222222;
-    }
-
-    /* NAV */
     nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 2.5rem;
-      background: #ffffff;
-      border-bottom: 1px solid #eeeeee;
-      position: sticky;
-      top: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 2.5rem; background: #ffffff; border-bottom: 1px solid #eeeeee;
+      position: sticky; top: 0; z-index: 100;
     }
-    .logo {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #222222;
-      text-decoration: none;
-    }
-    nav a.back {
-      font-size: 0.9rem;
-      color: #555555;
-      text-decoration: none;
-    }
+    .logo { font-size: 1.1rem; font-weight: bold; color: #222222; text-decoration: none; }
+    nav a.back { font-size: 0.9rem; color: #555555; text-decoration: none; }
     nav a.back:hover { color: #222222; }
 
-    /* HEADER */
     .project-header {
-      padding: 3.5rem 2.5rem 2.5rem;
-      max-width: 900px;
-      margin: 0 auto;
+      padding: 3.5rem 2.5rem 2.5rem; max-width: 960px; margin: 0 auto;
       border-bottom: 1px solid #eeeeee;
     }
     .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.85rem;
-      color: #555555;
-      text-decoration: none;
-      margin-bottom: 1.5rem;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.85rem; color: #555555; text-decoration: none; margin-bottom: 1.5rem;
     }
     .back-link:hover { color: #222222; }
-
-    .project-header h1 {
-      font-size: 2.2rem;
-      font-weight: bold;
-      margin-bottom: 0.75rem;
-      line-height: 1.2;
-    }
-    .project-header p {
-      color: #555555;
-      font-size: 1rem;
-      line-height: 1.7;
-      max-width: 680px;
-      margin-bottom: 1.5rem;
-    }
-
-    .meta {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-    .meta-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #999999;
-    }
-    .meta-value {
-      font-size: 0.9rem;
-      color: #222222;
-      font-weight: 500;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .tags span {
-      background: #f0f0f0;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      color: #333333;
-    }
-
-    /* NOTEBOOK EMBED */
-    .notebook-container {
-      max-width: 900px;
-      margin: 2.5rem auto;
-      padding: 0 2.5rem 4rem;
-    }
-    .notebook-container h2 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      color: #555555;
-      font-weight: normal;
-    }
-    .notebook-frame {
-      width: 100%;
-      height: 800px;
-      border: 1px solid #eeeeee;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: #f9f9f9;
-      border-top: 1px solid #eeeeee;
-      font-size: 0.85rem;
-      color: #999999;
-    }
+    .project-header h1 { font-size: 2.2rem; font-weight: bold; margin-bottom: 0.75rem; }
+    .project-header > p { color: #555555; font-size: 1rem; line-height: 1.7; max-width: 680px; margin-bottom: 1.5rem; }
+    .meta { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .meta-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #999999; }
+    .meta-value { font-size: 0.9rem; color: #222222; font-weight: 500; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .tags span { background: #f0f0f0; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.78rem; color: #333333; }
     .github-btn {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.6rem 1.4rem;
-  border: 1px solid #222222;
-  border-radius: 4px;
-  text-decoration: none;
-  color: #222222;
-  font-size: 0.88rem;
-  transition: all 0.2s;
-}
+      display: inline-block; padding: 0.6rem 1.4rem; border: 1px solid #222222;
+      border-radius: 4px; text-decoration: none; color: #222222; font-size: 0.88rem; transition: all 0.2s;
+    }
+    .github-btn:hover { background: #222222; color: #ffffff; }
 
-.github-btn:hover {
-  background: #222222;
-  color: #ffffff;
-}
+    /* STATS BAR */
+    .stats-bar {
+      max-width: 960px; margin: 0 auto; padding: 2rem 2.5rem;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+      border-bottom: 1px solid #eeeeee;
+    }
+    .stat-card {
+      background: #f9f9f9; border: 1px solid #eeeeee;
+      border-radius: 8px; padding: 1.2rem 1.4rem; text-align: center;
+    }
+    .stat-num { font-size: 1.8rem; font-weight: bold; color: #222222; }
+    .stat-label { font-size: 0.75rem; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem; }
+
+    /* WALKTHROUGH */
+    .walkthrough { max-width: 960px; margin: 0 auto; padding: 3rem 2.5rem; }
+    .walkthrough-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 2.5rem; }
+
+    .step { display: flex; gap: 2rem; margin-bottom: 3rem; position: relative; }
+    .step:not(:last-child)::after {
+      content: ''; position: absolute; left: 19px; top: 44px;
+      bottom: -3rem; width: 2px; background: #eeeeee;
+    }
+    .step-number {
+      flex-shrink: 0; width: 40px; height: 40px;
+      background: #222222; color: #ffffff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: bold; position: relative; z-index: 1;
+    }
+    .step-content { flex: 1; padding-top: 0.5rem; }
+    .step-content h3 { font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem; }
+    .step-content p { font-size: 0.92rem; color: #555555; line-height: 1.7; margin-bottom: 1rem; }
+    .step-highlight {
+      background: #f9f9f9; border: 1px solid #eeeeee; border-left: 3px solid #222222;
+      border-radius: 4px; padding: 0.75rem 1rem; font-size: 0.88rem;
+      color: #444444; line-height: 1.6; margin-bottom: 1.2rem;
+    }
+    .step-highlight ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+    .step-highlight ul li { padding-left: 1rem; position: relative; }
+    .step-highlight ul li::before { content: '→'; position: absolute; left: 0; color: #999999; font-size: 0.8rem; }
+
+    .chart-box {
+      background: #ffffff; border: 1px solid #eeeeee;
+      border-radius: 8px; padding: 1rem; margin-top: 1rem;
+    }
+    .chart-title {
+      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: #999999; margin-bottom: 0.5rem;
+    }
+
+    /* NOTEBOOK */
+    .notebook-container {
+      max-width: 960px; margin: 0 auto; padding: 2.5rem 2.5rem 4rem;
+      border-top: 1px solid #eeeeee;
+    }
+    .notebook-label {
+      font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: #999999; margin-bottom: 1rem;
+    }
+    .notebook-frame { width: 100%; height: 800px; border: 1px solid #eeeeee; border-radius: 8px; overflow: hidden; }
+
+    footer {
+      text-align: center; padding: 2rem; background: #f9f9f9;
+      border-top: 1px solid #eeeeee; font-size: 0.85rem; color: #999999;
+    }
+
+    @media (max-width: 768px) {
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      nav, .project-header, .stats-bar, .walkthrough, .notebook-container { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -162,46 +122,252 @@
   <div class="project-header">
     <a href="index.html" class="back-link">← All Projects</a>
     <h1>FoodHub Order Analysis</h1>
-    <p>Conducted exploratory data analysis using NumPy, Pandas, Matplotlib, and Seaborn to uncover customer ordering patterns and identify opportunities to improve targeted marketing strategies for a food delivery platform.</p>
-
+    <p>Exploratory data analysis on 1,898 food delivery orders to uncover customer ordering patterns and identify opportunities to improve marketing strategies for a food delivery platform.</p>
     <div class="meta">
-      <div class="meta-item">
-        <span class="meta-label">Type</span>
-        <span class="meta-value">Exploratory Data Analysis</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Tools</span>
-        <span class="meta-value">Python, Pandas, Seaborn</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Dataset</span>
-        <span class="meta-value">Food Delivery Orders</span>
-      </div>
+      <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">Exploratory Data Analysis</span></div>
+      <div class="meta-item"><span class="meta-label">Tools</span><span class="meta-value">Python, Pandas, Seaborn</span></div>
+      <div class="meta-item"><span class="meta-label">Dataset</span><span class="meta-value">1,898 Food Delivery Orders</span></div>
     </div>
-
     <div class="tags">
-      <span>Python</span>
-      <span>Pandas</span>
-      <span>NumPy</span>
-      <span>Matplotlib</span>
-      <span>Seaborn</span>
-      <span>EDA</span>
+      <span>Python</span><span>Pandas</span><span>NumPy</span><span>Matplotlib</span><span>Seaborn</span><span>EDA</span>
     </div>
     <a href="https://github.com/dylanabustos/foodhub-order-analysis" target="_blank" class="github-btn">View on GitHub →</a>
   </div>
 
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-card"><div class="stat-num">1,898</div><div class="stat-label">Total Orders</div></div>
+    <div class="stat-card"><div class="stat-num">71.2%</div><div class="stat-label">Weekend Orders</div></div>
+    <div class="stat-card"><div class="stat-num">$16.50</div><div class="stat-label">Avg Order Cost</div></div>
+    <div class="stat-card"><div class="stat-num">24.2 min</div><div class="stat-label">Avg Delivery Time</div></div>
+  </div>
+
+  <!-- WALKTHROUGH -->
+  <div class="walkthrough">
+    <div class="walkthrough-title">Project Walkthrough</div>
+
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <h3>Understanding the Data</h3>
+        <p>The dataset contains 1,898 food delivery orders from FoodHub. Each row represents one order and includes details about the customer, restaurant, cuisine, cost, delivery time, and rating.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>1,898 total orders across 14 cuisine types</li>
+            <li>Key columns: cuisine type, cost, delivery time, rating, day of week</li>
+            <li>Orders split between weekdays and weekends</li>
+            <li>Ratings of 3, 4, or 5 — many customers did not leave a rating</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <h3>Cleaning the Data</h3>
+        <p>Before diving into analysis, the data was checked for issues that could affect the results. The main issue found was that many ratings were listed as "Not given" rather than a number.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>736 out of 1,898 orders had no rating provided (38.8%)</li>
+            <li>No duplicate orders found in the dataset</li>
+            <li>"Not given" ratings were excluded from average rating calculations</li>
+            <li>All other columns were complete with no missing values</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <h3>Which Cuisines Are Most Popular?</h3>
+        <p>The first question was — what are customers actually ordering? Understanding cuisine popularity helps FoodHub decide which restaurant partnerships to prioritize and where to focus marketing efforts.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>American food was ordered most — 584 orders (30.8% of all orders)</li>
+            <li>Japanese was second most popular with 470 orders</li>
+            <li>Together American and Japanese make up over 55% of all orders</li>
+            <li>Vietnamese and Korean cuisines had the fewest orders</li>
+          </ul>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">Orders by Cuisine Type — hover over bars for details</div>
+          <div id="chart-cuisine"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <h3>When Are Orders Being Placed?</h3>
+        <p>Understanding when customers order is critical for staffing, inventory, and targeted promotions. The data was split between weekday and weekend orders to see if there was a meaningful difference.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>71.2% of all orders were placed on weekends</li>
+            <li>Only 28.8% of orders came in on weekdays</li>
+            <li>Weekend delivery times were faster — avg 22.5 min vs 28.3 min on weekdays</li>
+            <li>This suggests weekday orders may face more delays or traffic</li>
+          </ul>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">Weekend vs Weekday Orders — hover for details</div>
+          <div id="chart-day"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <h3>Top Restaurants by Order Volume</h3>
+        <p>A small number of restaurants were responsible for a large portion of all orders. Identifying these top performers helps FoodHub understand which partnerships are most valuable.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>Shake Shack led with 219 orders — the most of any restaurant</li>
+            <li>The top 10 restaurants accounted for 887 orders (46.7% of all orders)</li>
+            <li>Blue Ribbon brand appeared 3 times in the top 10</li>
+          </ul>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">Top 10 Restaurants by Orders — hover for details</div>
+          <div id="chart-restaurants"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <h3>How Are Customers Rating Their Orders?</h3>
+        <p>Customer ratings tell us how satisfied people are with their orders. Looking at average ratings by cuisine reveals which food types consistently delight customers.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>Spanish cuisine had the highest avg rating at 4.83 out of 5</li>
+            <li>Indian cuisine was close behind at 4.54</li>
+            <li>Vietnamese cuisine had the lowest avg rating at 4.0</li>
+            <li>All cuisines scored above 4.0 — overall customer satisfaction was high</li>
+          </ul>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">Average Rating by Cuisine — hover for details</div>
+          <div id="chart-ratings"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">7</div>
+      <div class="step-content">
+        <h3>What Do Most Orders Cost?</h3>
+        <p>Understanding the distribution of order costs helps identify the most common price range customers spend in, which can guide promotional pricing and discount strategies.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>Most orders fell in the $10–$15 range (614 orders)</li>
+            <li>Orders under $20 made up nearly 71% of all orders</li>
+            <li>Very few orders exceeded $30</li>
+            <li>Average order cost was $16.50</li>
+          </ul>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">Order Cost Distribution — hover for details</div>
+          <div id="chart-cost"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">8</div>
+      <div class="step-content">
+        <h3>Conclusion & Recommendations</h3>
+        <p>Based on the full analysis of 1,898 orders, several clear patterns emerged that FoodHub can act on to improve customer experience and grow revenue.</p>
+        <div class="step-highlight">
+          <ul>
+            <li>Focus weekend marketing on American and Japanese cuisines — they drive over 55% of all orders</li>
+            <li>Investigate why weekday delivery times are 26% slower than weekends and address the bottleneck</li>
+            <li>Strengthen partnerships with Shake Shack and The Meatball Shop — they generate the most volume</li>
+            <li>Promote Spanish and Indian cuisines more — they have the highest customer satisfaction scores</li>
+            <li>Consider targeted promotions for orders in the $15–$25 range to increase average order value</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NOTEBOOK -->
   <div class="notebook-container">
-    <h2>Full Notebook</h2>
+    <div class="notebook-label">Full Technical Notebook</div>
     <iframe
       class="notebook-frame"
       src="https://nbviewer.org/github/dylanabustos/foodhub-order-analysis/blob/main/FoodHub_Python_Foundations.ipynb"
-      title="FoodHub Order Analysis Notebook">
+      title="FoodHub Notebook">
     </iframe>
   </div>
 
   <footer>
     <p>© 2025 Dylan Bustos. Built with HTML & CSS.</p>
   </footer>
+
+  <script>
+    const layout = () => ({
+      margin: { t: 10, r: 10, b: 60, l: 60 },
+      paper_bgcolor: 'transparent',
+      plot_bgcolor: 'transparent',
+      font: { family: 'Arial, sans-serif', size: 12, color: '#444444' },
+      xaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee' },
+      yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee' },
+      showlegend: false,
+    });
+    const config = { responsive: true, displayModeBar: false };
+
+    // Chart 1 — Cuisine counts
+    const cuisines = ["American","Japanese","Italian","Chinese","Mexican","Indian","Middle Eastern","Mediterranean","Thai","French","Southern","Korean","Spanish","Vietnamese"];
+    const cuisineCounts = [584,470,298,215,77,73,49,46,19,18,17,13,12,7];
+    Plotly.newPlot('chart-cuisine', [{
+      type: 'bar', x: cuisines, y: cuisineCounts,
+      marker: { color: cuisineCounts.map((v, i) => i < 3 ? '#222222' : '#aaaaaa') },
+      hovertemplate: '<b>%{x}</b><br>Orders: %{y}<extra></extra>',
+    }], { ...layout(), height: 320 }, config);
+
+    // Chart 2 — Day of week
+    Plotly.newPlot('chart-day', [{
+      type: 'bar', x: ['Weekend', 'Weekday'], y: [1351, 547],
+      marker: { color: ['#222222', '#aaaaaa'] },
+      hovertemplate: '<b>%{x}</b><br>Orders: %{y}<extra></extra>',
+      text: ['71.2%', '28.8%'], textposition: 'outside',
+    }], { ...layout(), height: 280, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [0, 1600] } }, config);
+
+    // Chart 3 — Top restaurants
+    const restaurants = ['Shake Shack','The Meatball Shop','Blue Ribbon Sushi','Blue Ribbon Fried Chicken','Parm','RedFarm Broadway','RedFarm Hudson','TAO','Han Dynasty','Blue Ribbon Sushi Bar & Grill'];
+    const restCounts = [219,132,119,96,68,59,55,49,46,44];
+    Plotly.newPlot('chart-restaurants', [{
+      type: 'bar', orientation: 'h',
+      x: [...restCounts].reverse(), y: [...restaurants].reverse(),
+      marker: { color: [...restCounts].reverse().map((v, i) => i >= restCounts.length - 3 ? '#222222' : '#aaaaaa') },
+      hovertemplate: '<b>%{y}</b><br>Orders: %{x}<extra></extra>',
+    }], { ...layout(), height: 360, margin: { t: 10, r: 10, b: 40, l: 220 } }, config);
+
+    // Chart 4 — Ratings by cuisine
+    const ratingData = [['Spanish',4.83],['Thai',4.67],['Indian',4.54],['Mexican',4.42],['Japanese',4.37],['Italian',4.36],['Chinese',4.34],['Southern',4.31],['French',4.3],['American',4.3],['Middle Eastern',4.24],['Mediterranean',4.22],['Korean',4.11],['Vietnamese',4.0]];
+    Plotly.newPlot('chart-ratings', [{
+      type: 'bar',
+      x: ratingData.map(d => d[0]),
+      y: ratingData.map(d => d[1]),
+      marker: { color: ratingData.map(d => d[1] >= 4.5 ? '#222222' : d[1] >= 4.3 ? '#666666' : '#aaaaaa') },
+      hovertemplate: '<b>%{x}</b><br>Avg Rating: %{y}<extra></extra>',
+    }], { ...layout(), height: 300, yaxis: { gridcolor: '#eeeeee', linecolor: '#eeeeee', range: [3.8, 5.0] } }, config);
+
+    // Chart 5 — Cost distribution
+    Plotly.newPlot('chart-cost', [{
+      type: 'bar',
+      x: ['$0-10','$10-15','$15-20','$20-25','$25-30','$30-35','$35+'],
+      y: [394, 614, 335, 250, 205, 99, 1],
+      marker: { color: [394, 614, 335, 250, 205, 99, 1].map((v, i) => i === 1 ? '#222222' : '#aaaaaa') },
+      hovertemplate: '<b>%{x}</b><br>Orders: %{y}<extra></extra>',
+    }], { ...layout(), height: 300 }, config);
+  </script>
 
 </body>
 </html>
