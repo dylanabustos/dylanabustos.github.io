@@ -1,6 +1,6 @@
 # Dylan Bustos – Data Science Portfolio
 
-Personal portfolio site built from scratch with HTML, CSS, and JavaScript. Features interactive data visualizations built with Plotly.js powered by real project datasets.
+Personal portfolio site using HTML, CSS, and JavaScript. Features interactive data visualizations built with Plotly.js powered by real project datasets.
 
 **Live site:** [dylanabustos.github.io](https://dylanabustos.github.io)
 
