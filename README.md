@@ -5,7 +5,7 @@ Personal portfolio site using HTML, CSS, and JavaScript. Features interactive da
 **Live site:** [dylanabustos.github.io](https://dylanabustos.github.io)
 
 ## What's Inside
-- Project pages for 7 end-to-end data science and ML projects
+- Project pages for end-to-end data science and ML projects
 - Interactive charts built directly from project datasets (no static images)
 - Step-by-step project walkthroughs written for both technical and non-technical audiences
 - Fully responsive layout built without any CSS frameworks
