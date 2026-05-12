@@ -10,193 +10,307 @@
 
 <body>
 
-  <!-- NAV -->
-  <nav>
+  <!-- MOBILE HEADER -->
+  <header class="mobile-header">
     <span class="logo">Dylan Bustos</span>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">&#9776;</button>
+  </header>
 
-  <!-- HERO -->
-  <section id="hero">
-    <h1>Hi, I'm Dylan Bustos</h1>
-    <p>Bridging computer science and data analytics to solve real-world problems.</p>
-    <div class="hero-buttons">
-      <a href="#projects">View My Work</a>
-      <a href="Dylan_Bustos_Resume.pdf" download class="resume-btn">Download Resume</a>
+  <!-- SIDEBAR OVERLAY -->
+  <div class="sidebar-overlay" id="overlay"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">Dylan Bustos</div>
+    <nav class="sidebar-nav">
+      <a href="#hero" class="sidebar-link active">Home</a>
+      <a href="#about" class="sidebar-link">About</a>
+      <a href="#education" class="sidebar-link">Education</a>
+      <a href="#projects" class="sidebar-link">Projects</a>
+      <a href="#contact" class="sidebar-link">Contact</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="mailto:dylanantoniobustos@gmail.com" class="sidebar-contact-link">✉ Email</a>
+      <a href="https://www.linkedin.com/in/dylan-bustos-12aa0a23b" target="_blank"
+        class="sidebar-contact-link">LinkedIn</a>
+      <a href="https://github.com/dylanabustos" target="_blank" class="sidebar-contact-link">GitHub</a>
     </div>
-  </section>
+  </aside>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="about-inner">
-      <img src="profile.png" alt="Dylan Bustos" class="about-photo" />
-      <div class="about-text">
-        <h2>About Me</h2>
-        <p>Software engineer with a strong foundation in computer science and data-driven problem solving. Experience
-          building Python and SQL applications, machine learning models, and analytics pipelines. Seeking entry-level
-          software engineering roles where I can contribute production-quality code and leverage data science to inform
-          product decisions.</p>
-        <p>I hold a Post Graduate Program certificate in Data Science and Business Analytics from UT Austin and a
-          Bachelor of Science degree in Computer Science from UT Dallas. Currently seeking full-time software
-          engineering, data analyst, and data science roles.</p>
-        <h3>Skills</h3>
-        <ul class="skills-list">
-          <li>Python</li>
-          <li>SQL</li>
-          <li>Pandas & NumPy</li>
-          <li>Scikit-Learn</li>
-          <li>Tableau</li>
-          <li>Matplotlib & Seaborn</li>
-          <li>MySQL</li>
-          <li>Machine Learning</li>
-          <li>Java</li>
-          <li>JavaScript</li>
-          <li>Jupyter Notebook</li>
-          <li>GitHub</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects-grid">
-
-      <div class="project-card">
-        <h3>FoodHub Order Analysis</h3>
-        <p>Conducted exploratory data analysis using NumPy, Pandas, Matplotlib, and Seaborn to uncover customer ordering
-          patterns and improve targeted marketing strategies for a food delivery platform.</p>
-        <div class="project-tags">
-          <span>Python</span>
-          <span>Pandas</span>
-          <span>Seaborn</span>
-          <span>EDA</span>
-        </div>
-        <div class="project-card-links">
-          <a href="foodhub.html" class="project-link">View Project →</a>
-          <a href="https://github.com/dylanabustos/foodhub-order-analysis" class="project-link" target="_blank">GitHub
-            →</a>
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Software Engineer & Data Scientist</p>
+        <h1>Hi, I'm <span>Dylan</span> Bustos</h1>
+        <p class="hero-sub">Bridging computer science and data analytics to solve real-world problems.</p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn-primary">View My Work</a>
+          <a href="Dylan_Bustos_Resume.pdf" download class="btn-secondary">Download Resume</a>
         </div>
       </div>
+    </section>
 
-      <div class="project-card">
-        <h3>INN Hotels – Booking Cancellations</h3>
-        <p>Built logistic regression and decision tree models to predict hotel booking cancellations, identifying key
-          features to support data-driven refund policy and revenue optimization decisions.</p>
-        <div class="project-tags">
-          <span>Python</span>
-          <span>Scikit-Learn</span>
-          <span>Classification</span>
-        </div>
-        <div class="project-card-links">
-          <a href="innhotels.html" class="project-link">View Project →</a>
-          <a href="https://github.com/dylanabustos/inn-hotels" class="project-link" target="_blank">GitHub →</a>
+    <!-- ABOUT -->
+    <section id="about">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-inner">
+        <img src="profile.png" alt="Dylan Bustos" class="about-photo" />
+        <div class="about-text">
+          <p>Software engineer with a strong foundation in computer science and data-driven problem solving. Experience
+            building Python and SQL applications, machine learning models, and analytics pipelines. Seeking entry-level
+            software engineering roles where I can contribute production-quality code and leverage data science to
+            inform
+            product decisions.</p>
+          <p>I hold a Post Graduate Program certificate in Data Science and Business Analytics from UT Austin and a
+            Bachelor of Science degree in Computer Science from UT Dallas. Currently seeking full-time software
+            engineering, data analyst, and data science roles.</p>
+          <h3 class="skills-label">Skills</h3>
+          <ul class="skills-list">
+            <li>Python</li>
+            <li>SQL</li>
+            <li>Pandas & NumPy</li>
+            <li>Scikit-Learn</li>
+            <li>Tableau</li>
+            <li>Matplotlib & Seaborn</li>
+            <li>MySQL</li>
+            <li>Machine Learning</li>
+            <li>Java</li>
+            <li>JavaScript</li>
+            <li>Jupyter Notebook</li>
+            <li>GitHub</li>
+          </ul>
         </div>
       </div>
+    </section>
 
-      <div class="project-card">
-        <h3>EasyVisa – Visa Approval Prediction</h3>
-        <p>Developed ensemble ML models using bagging and boosting to predict visa approvals, achieving 75–78% accuracy
-          and identifying key decision drivers.</p>
-        <div class="project-tags">
-          <span>Python</span>
-          <span>Ensemble ML</span>
-          <span>Scikit-Learn</span>
+    <!-- EDUCATION -->
+    <section id="education">
+      <h2 class="section-title">Education</h2>
+      <div class="edu-list">
+
+        <div class="edu-card">
+          <div class="edu-icon">🔐</div>
+          <div class="edu-body">
+            <div class="edu-top">
+              <div>
+                <p class="edu-school">Johns Hopkins University</p>
+                <p class="edu-program">Post Graduate Program, Cybersecurity</p>
+              </div>
+              <span class="edu-date">May 2026 – Aug 2026</span>
+            </div>
+            <div class="edu-badges">
+              <span class="badge badge-blue">In Progress</span>
+            </div>
+          </div>
         </div>
-        <div class="project-card-links">
-          <a href="easyvisa.html" class="project-link">View Project →</a>
-          <a href="https://github.com/dylanabustos/easyvisa" class="project-link" target="_blank">GitHub →</a>
+
+        <div class="edu-card">
+          <div class="edu-icon">📊</div>
+          <div class="edu-body">
+            <div class="edu-top">
+              <div>
+                <p class="edu-school">The University of Texas at Austin</p>
+                <p class="edu-program">Post Graduate Program, Data Science & Business Analytics</p>
+              </div>
+              <span class="edu-date">Aug 2025</span>
+            </div>
+            <div class="edu-badges">
+              <span class="badge badge-green">GPA 4.0</span>
+              <span class="badge badge-blue">Completed</span>
+            </div>
+          </div>
         </div>
+
+        <div class="edu-card">
+          <div class="edu-icon">💻</div>
+          <div class="edu-body">
+            <div class="edu-top">
+              <div>
+                <p class="edu-school">The University of Texas at Dallas</p>
+                <p class="edu-program">Bachelor of Science, Computer Science</p>
+              </div>
+              <span class="edu-date">May 2024</span>
+            </div>
+            <div class="edu-badges">
+              <span class="badge badge-blue">Completed</span>
+            </div>
+          </div>
+        </div>
+
       </div>
+    </section>
 
-      <div class="project-card">
-        <h3>Trade & Ahead – Stock Clustering</h3>
-        <p>Applied K-Means and hierarchical clustering to stock market data to identify investment-relevant patterns.
-          Achieved a peak cophenetic correlation score of 0.94.</p>
-        <div class="project-tags">
-          <span>Python</span>
-          <span>K-Means</span>
-          <span>Unsupervised Learning</span>
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <h3>FoodHub Order Analysis</h3>
+          <p>Conducted exploratory data analysis using NumPy, Pandas, Matplotlib, and Seaborn to uncover customer
+            ordering
+            patterns and improve targeted marketing strategies for a food delivery platform.</p>
+          <div class="project-tags">
+            <span>Python</span><span>Pandas</span><span>Seaborn</span><span>EDA</span>
+          </div>
+          <div class="project-card-links">
+            <a href="foodhub.html" class="project-link">View Project →</a>
+            <a href="https://github.com/dylanabustos/foodhub-order-analysis" class="project-link" target="_blank">GitHub
+              →</a>
+          </div>
         </div>
-        <div class="project-card-links">
-          <a href="tradeahead.html" class="project-link">View Project →</a>
-          <a href="https://github.com/dylanabustos/trade-ahead" class="project-link" target="_blank">GitHub →</a>
+
+        <div class="project-card">
+          <h3>INN Hotels – Booking Cancellations</h3>
+          <p>Built logistic regression and decision tree models to predict hotel booking cancellations, identifying key
+            features to support data-driven refund policy and revenue optimization decisions.</p>
+          <div class="project-tags">
+            <span>Python</span><span>Scikit-Learn</span><span>Classification</span>
+          </div>
+          <div class="project-card-links">
+            <a href="innhotels.html" class="project-link">View Project →</a>
+            <a href="https://github.com/dylanabustos/inn-hotels" class="project-link" target="_blank">GitHub →</a>
+          </div>
         </div>
+
+        <div class="project-card">
+          <h3>EasyVisa – Visa Approval Prediction</h3>
+          <p>Developed ensemble ML models using bagging and boosting to predict visa approvals, achieving 75–78%
+            accuracy
+            and identifying key decision drivers.</p>
+          <div class="project-tags">
+            <span>Python</span><span>Ensemble ML</span><span>Scikit-Learn</span>
+          </div>
+          <div class="project-card-links">
+            <a href="easyvisa.html" class="project-link">View Project →</a>
+            <a href="https://github.com/dylanabustos/easyvisa" class="project-link" target="_blank">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <h3>Trade & Ahead – Stock Clustering</h3>
+          <p>Applied K-Means and hierarchical clustering to stock market data to identify investment-relevant patterns.
+            Achieved a peak cophenetic correlation score of 0.94.</p>
+          <div class="project-tags">
+            <span>Python</span><span>K-Means</span><span>Unsupervised Learning</span>
+          </div>
+          <div class="project-card-links">
+            <a href="tradeahead.html" class="project-link">View Project →</a>
+            <a href="https://github.com/dylanabustos/trade-ahead" class="project-link" target="_blank">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <h3>New Wheels – SQL Analytics</h3>
+          <p>Built a SQL dashboard and automated quarterly reports to identify key business drivers and customer
+            retention
+            strategies using analysis of 994 annual customer reviews.</p>
+          <div class="project-tags">
+            <span>SQL</span><span>MySQL</span><span>Analytics</span>
+          </div>
+          <div class="project-card-links">
+            <a href="newwheels.html" class="project-link">View Project →</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <h3>ReCell – Used Device Pricing</h3>
+          <p>Built a linear regression model to develop a dynamic pricing strategy for used and refurbished devices.
+            Identified key factors influencing resale price and provided business recommendations.</p>
+          <div class="project-tags">
+            <span>Python</span><span>Linear Regression</span><span>EDA</span><span>Scikit-Learn</span>
+          </div>
+          <div class="project-card-links">
+            <a href="recell.html" class="project-link">View Project →</a>
+            <a href="https://github.com/dylanabustos/recell-pricing-analysis" class="project-link"
+              target="_blank">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <h3>E-news Express</h3>
+          <p>Used A/B testing and statistical analysis to determine whether a new landing page effectively gathers new
+            subscribers for an online news portal.</p>
+          <div class="project-tags">
+            <span>A/B Testing</span><span>Hypothesis Testing</span><span>Data Visualization</span><span>Statistical
+              Inference</span>
+          </div>
+          <div class="project-card-links">
+            <a href="enews.html" class="project-link">View Project →</a>
+            <a href="https://github.com/dylanabustos/enews-express" class="project-link" target="_blank">GitHub →</a>
+          </div>
+        </div>
+
       </div>
+    </section>
 
-      <div class="project-card">
-        <h3>New Wheels – SQL Analytics</h3>
-        <p>Built a SQL dashboard and automated quarterly reports to identify key business drivers and customer retention
-          strategies using analysis of 994 annual customer reviews.</p>
-        <div class="project-tags">
-          <span>SQL</span>
-          <span>MySQL</span>
-          <span>Analytics</span>
-        </div>
-        <div class="project-card-links">
-          <a href="newwheels.html" class="project-link">View Project →</a>
-        </div>
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="contact-sub">I'm currently open to full-time software engineering, data analyst, and data science roles.
+        Feel free to reach out!</p>
+      <div class="contact-links">
+        <a href="mailto:dylanantoniobustos@gmail.com">✉ Email Me</a>
+        <a href="https://www.linkedin.com/in/dylan-bustos-12aa0a23b" target="_blank">LinkedIn</a>
+        <a href="https://github.com/dylanabustos" target="_blank">GitHub</a>
       </div>
+    </section>
 
-      <div class="project-card">
-        <h3>ReCell – Used Device Pricing</h3>
-        <p>Built a linear regression model to develop a dynamic pricing strategy for used and refurbished devices.
-          Identified key factors influencing resale price and provided business recommendations.</p>
-        <div class="project-tags">
-          <span>Python</span>
-          <span>Linear Regression</span>
-          <span>EDA</span>
-          <span>Scikit-Learn</span>
-        </div>
-        <div class="project-card-links">
-          <a href="recell.html" class="project-link">View Project →</a>
-          <a href="https://github.com/dylanabustos/recell-pricing-analysis" class="project-link" target="_blank">GitHub
-            →</a>
-        </div>
-      </div>
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2026 Dylan Bustos. Built with HTML & CSS.</p>
+    </footer>
 
-      <div class="project-card">
-        <h3>E-news Express</h3>
-        <p>Used A/B testing and statistical analysis to determine whether a new landing page effectively gathers new
-          subscribers for an online news portal.</p>
-        <div class="project-tags">
-          <span>A/B Testing</span>
-          <span>Hypothesis Testing</span>
-          <span>Data Visualization</span>
-          <span>Statistical Inference</span>
-        </div>
-        <div class="project-card-links">
-          <a href="enews.html" class="project-link">View Project →</a>
-          <a href="https://github.com/dylanabustos/enews-express" class="project-link" target="_blank">GitHub →</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2>Get In Touch</h2>
-    <p>I'm currently open to full-time software engineering, data analyst, and data science roles. Feel free to reach
-      out!</p>
-    <div class="contact-links">
-      <a href="mailto:dylanantoniobustos@gmail.com">✉ Email Me</a>
-      <a href="https://www.linkedin.com/in/dylan-bustos-12aa0a23b" target="_blank">LinkedIn</a>
-      <a href="https://github.com/dylanabustos" target="_blank">GitHub</a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2026 Dylan Bustos. Built with HTML & CSS.</p>
-  </footer>
+  </main>
 
   <script src="script.js"></script>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    function openSidebar() {
+      sidebar.classList.add('open');
+      overlay.classList.add('show');
+    }
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+    }
+
+    hamburger.addEventListener('click', openSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+      link.addEventListener('click', closeSidebar);
+    });
+
+    const sections = document.querySelectorAll('section[id]');
+    const links = document.querySelectorAll('.sidebar-link');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 150;
+        if (window.scrollY >= sectionTop) current = section.getAttribute('id');
+      });
+
+      // Force contact when scrolled to bottom
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
+        current = 'contact';
+      }
+
+      links.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    });
+  </script>
+
 </body>
 
 </html>
